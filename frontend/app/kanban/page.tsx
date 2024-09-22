@@ -3,13 +3,13 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchTasks, updatekanbanTask } from '../../store/taskSlice';
 import KanbanColumn from '../../components/KanbanColumn';
-import { RootState } from '../../store';
+import { RootState,AppDispatch } from '../../store';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { toast } from 'react-toastify';
 
 export default function KanbanPage() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const { tasks, loading, error } = useSelector((state: RootState) => state.tasks);
 
   useEffect(() => {

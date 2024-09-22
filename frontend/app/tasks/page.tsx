@@ -2,14 +2,14 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchTasks, deleteTask, updateTask } from '../../store/taskSlice';
-import { RootState } from '../../store';
+import { RootState, AppDispatch } from '../../store';
 import TaskItem from '../../components/TaskItem';
 import { Button } from '@/components/ui/button';
 import { toast } from 'react-toastify';
 import CreateTaskForm from '../../components/CreateTaskForm';
 
 export default function TaskPage() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch <AppDispatch>();
   const { tasks, loading, error } = useSelector((state: RootState) => state.tasks);
   const [isFormVisible, setFormVisible] = useState(false);
 

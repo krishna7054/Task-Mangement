@@ -1,6 +1,7 @@
 "use client";
 import { useDrop } from 'react-dnd';
 import { TaskCard } from './TaskCard';
+import { useRef } from 'react';
 
 interface KanbanColumnProps {
   status: string;
@@ -9,6 +10,7 @@ interface KanbanColumnProps {
 }
 
 const KanbanColumn: React.FC<KanbanColumnProps> = ({ status, tasks, handleDrop }) => {
+  const ref = useRef<HTMLDivElement>(null);
   const [, drop] = useDrop({
     accept: 'TASK',
     drop: (item: any) => {
@@ -17,9 +19,11 @@ const KanbanColumn: React.FC<KanbanColumnProps> = ({ status, tasks, handleDrop }
     },
   });
 
+  drop(ref);
+
   return (
     <div
-      ref={drop}
+      ref={ref}
       className="kanban-column p-4 border rounded-lg my-4  shadow-lg bg-white transition duration-300 ease-in-out transform hover:scale-105 
                  sm:w-full md:w-1/2 lg:w-1/3 xl:w-1/4"
     >

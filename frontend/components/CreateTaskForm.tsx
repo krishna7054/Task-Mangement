@@ -4,16 +4,23 @@ import { useDispatch } from 'react-redux';
 import { createTask } from '../store/taskSlice';
 import { toast } from 'react-hot-toast';
 import TaskForm from './TaskForm'; // Import the reusable TaskForm
+import { AppDispatch } from '@/store';
 
-export default function CreateTaskForm() {
-  const dispatch = useDispatch();
+interface CreateTaskFormProps {
+  onClose?: () => void;  // Optional onClose prop
+}
 
-  const handleSubmit = async (taskData: { title: string; description: string }) => {
-    const newTask = { ...taskData, status: 'To Do', priority: 'Medium', dueDate: new Date().toISOString(), }; // Add other fields as necessary
+export default function CreateTaskForm({ onClose }: CreateTaskFormProps) {
+  const dispatch = useDispatch<AppDispatch>();
+
+  const handleSubmit = async (taskData: {  title: string; description: string }) => {
+    const newTask = { ...taskData, status: 'To Do', priority: 'Medium', dueDate: new Date(),  }; // Add other fields as necessary
     
     try {
       await dispatch(createTask(newTask)).unwrap();
       toast.success('Task created successfully');
+      if (onClose) onClose();  
+      
     } catch (error) {
       toast.error('Failed to create task');
     }

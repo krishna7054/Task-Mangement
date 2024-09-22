@@ -3,7 +3,8 @@ import axios from 'axios';
 import { config } from 'process';
 
 interface Task {
-  _id: string;
+  id?: any;
+  _id?: string;
   title: string;
   description: string;
   status: string;
@@ -69,10 +70,10 @@ export const updateTask = createAsyncThunk('tasks/updateTask', async (taskData: 
 
 export const updatekanbanTask = createAsyncThunk('tasks/updatekanbanTask', async (taskData: Task) => {
   try {
-    console.log("taskData._id:", taskData._id);
-    // if(taskData._id!=="undefined")?taskData._id=taskData.id:taskData._id;
+    
+   
     const response = await api.put(`/tasks/${taskData.id}`, taskData);
-    // const response = await api.put(`/tasks/${taskData.id}`, taskData);
+   
     console.log("API response:", response.data); // Log the response
     return response.data;
   } catch (error) {
